@@ -3,19 +3,23 @@ import dotenv from "dotenv";
 
 dotenv.config();
 
-export const db = mysql.createConnection({
-  host: process.env.DB_HOST,
-  user: process.env.DB_USER,
-  password: process.env.DB_PASS,
-  database: process.env.DB_NAME,
-  port: process.env.DB_PORT
-});
+async function initDB() {
+  try {
+    const db = await mysql.createConnection({
+      host: process.env.DB_HOST,
+      user: process.env.DB_USER,
+      password: process.env.DB_PASS,
+      database: process.env.DB_NAME,
+      port: process.env.DB_PORT
+    });
 
-db.connect((err) => {
-  if (err) console.log("❌ Connection failed:", err.message);
-  else console.log("✅ Connection successful!");
-});
+    console.log("✅ Connection successful!");
+    return db;
+  } catch (err) {
+    console.log("❌ Connection failed:", err.message);
+    process.exit(1); // stop server if DB fails
+  }
+}
 
-
-
-
+// Export a promise of the DB connection
+export const db = initDB();

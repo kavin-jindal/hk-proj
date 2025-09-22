@@ -22,4 +22,5 @@ async function initDB() {
 }
 
 // Export a promise of the DB connection
-export const db = initDB();
+export const dbase = initDB();
+

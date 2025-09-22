@@ -16,6 +16,7 @@ const port = process.env.PORT;
 
 app.post("/signup", async (req, res) => {
     const {name, email, password} = req.body;
+    const db = await db;
     const [rows] = await db.execute("SELECT id from creds where email=?", [email]);
     if (rows.length>0){
         return res.json({success:false, message:'Email already exists.'})
@@ -67,5 +68,6 @@ app.listen(port, ()=>{
     console.log(`Listening on ${port}!`)
 
 })
+
 
 

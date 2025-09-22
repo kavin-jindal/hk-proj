@@ -1,18 +1,16 @@
-import mysql from 'mysql2'
-// setting up database
-export const db = await mysql.createConnection({
-    host: 'sql.freedb.tech',
-    user: 'freedb_im_admin',
-    password: 'd5AFjrWy7@3NFSG',
-    database: 'freedb_im_users',
+import mysql from "mysql2";
+import dotenv from "dotenv";
+
+dotenv.config();
+
+const db = mysql.createConnection({
+  host: process.env.DB_HOST,
+  user: process.env.DB_USER,
+  password: process.env.DB_PASS,
+  database: process.env.DB_NAME,
 });
 
-db.connect(err =>{
-    if (err){
-        console.log(`${err.message}, ${err.stack}`);
-
-    } else {
-        console.log("Connection successful!")
-    }
-})
-
+db.connect((err) => {
+  if (err) console.log("❌ Connection failed:", err.message);
+  else console.log("✅ Connection successful!");
+});

@@ -1,4 +1,4 @@
-import mysql from "mysql2";
+import mysql from "mysql2/promise";
 import dotenv from "dotenv";
 
 dotenv.config();
@@ -15,6 +15,7 @@ db.connect((err) => {
   if (err) console.log("❌ Connection failed:", err.message);
   else console.log("✅ Connection successful!");
 });
+
 
 
 

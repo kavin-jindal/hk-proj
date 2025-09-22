@@ -1,5 +1,5 @@
 import express from 'express';
-import {db} from './db.mjs';
+import {dbase} from './db.mjs';
 import session from 'express-session';
 
 import cors from 'cors';
@@ -16,7 +16,7 @@ const port = process.env.PORT;
 
 app.post("/signup", async (req, res) => {
     const {name, email, password} = req.body;
-    const db = await db;
+    const db = await dbase;
     const [rows] = await db.execute("SELECT id from creds where email=?", [email]);
     if (rows.length>0){
         return res.json({success:false, message:'Email already exists.'})
@@ -68,6 +68,7 @@ app.listen(port, ()=>{
     console.log(`Listening on ${port}!`)
 
 })
+
 
 
 

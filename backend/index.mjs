@@ -16,18 +16,18 @@ const port = process.env.PORT;
 
 app.post("/signup", async (req, res) => {
     const {name, email, password} = req.body;
-    const [rows] = await db.query("SELECT id from creds where email=?", [email]);
+    const [rows] = await db.execute("SELECT id from creds where email=?", [email]);
     if (rows.length>0){
         return res.json({success:false, message:'Email already exists.'})
     }
     else {
-        await db.query("INSERT INTO creds (name, email, password) VALUES (?, ?, ?)", [name, email, password]);
+        await db.execute("INSERT INTO creds (name, email, password) VALUES (?, ?, ?)", [name, email, password]);
         return res.json({success:true, message: "Account registered, kindly login"});
     }
 });
 app.post('/login', async (req, res) => {
     const {email, password} = req.body;
-    const [rows] = await db.query('SELECT id, name, email, password from creds where email=?', [email]);
+    const [rows] = await db.execute('SELECT id, name, email, password from creds where email=?', [email]);
     if (rows.length > 0){
         const row = rows[0];
         const user = {id: row.id, name: row.name, email: row.email};
@@ -67,4 +67,5 @@ app.listen(port, ()=>{
     console.log(`Listening on ${port}!`)
 
 })
+
 

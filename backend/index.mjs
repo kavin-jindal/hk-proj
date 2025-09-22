@@ -11,7 +11,7 @@ app.use(session({
 }));
 app.use(cors());
 app.use(express.json());
-const port = 3000;
+const port = process.env.PORT;
 
 
 app.post("/signup", async (req, res) => {
@@ -67,3 +67,4 @@ app.listen(port, ()=>{
     console.log(`Listening on ${port}!`)
 
 })
+

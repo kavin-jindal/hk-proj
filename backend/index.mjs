@@ -31,6 +31,7 @@ app.post("/signup", async (req, res) => {
 });
 app.post('/login', async (req, res) => {
     const {email, password} = req.body;
+    const db = await dbase;
     const [rows] = await db.execute('SELECT id, name, email, password from creds where email=?', [email]);
     if (rows.length > 0){
         const row = rows[0];
@@ -71,6 +72,7 @@ app.listen(port, ()=>{
     console.log(`Listening on ${port}!`)
 
 })
+
 
 
 

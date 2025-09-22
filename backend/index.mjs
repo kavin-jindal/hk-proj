@@ -3,7 +3,6 @@ import {db} from './db.mjs';
 import session from 'express-session';
 
 import cors from 'cors';
-import { id } from 'date-fns/locale/id';
 const app = express();
 app.use(session({
     secret: 'thisismysecretmf',
@@ -66,4 +65,5 @@ app.post('/profile', async (req, res) => {
 
 app.listen(port, ()=>{
     console.log(`Listening on ${port}!`)
+
 })

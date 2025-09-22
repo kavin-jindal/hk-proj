@@ -1,4 +1,4 @@
-import mysql from 'mysql2/promise'
+import mysql from 'mysql2'
 // setting up database
 export const db = await mysql.createConnection({
     host: 'sql.freedb.tech',
